@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html ng-app="myDashApp" ng-cloak >
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="github.com/rzrbld">
+
+  <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+  <link rel="stylesheet" href="bower_components/nvd3/nv.d3.css">
+  <link href="bower_components/angular-xeditable/dist/css/xeditable.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="bower_components/font-awesome/css/font-awesome.min.css">
+
+  <title>Simple frontend</title>
+
+</head>
+<body ng-controller="myDashCtrl">
+  <div class="container-fluid">
+      <div class="row">
+
+        <div class="col-sm-3 col-md-2 sidebar first-bar">
+
+          <ul class="nav nav-sidebar">
+            <li>
+              <a class="pointer" ng-click="getSensorList()">you've got 
+                <span class="new-badge">{{uuids.length}}</span>
+                 sensor{{plural(uuids)}}
+                <span class="fa fa-refresh refresh-icon-my" ng-class='{"fa-spin":refresh.sensorList == true}'></span>
+              </a>
+            </li>
+            <li>
+              <form class="form-inline search-sidebar">
+                <div class="form-group">
+                  <div class="input-group" ng-class="{'input-append':search}">
+                    <div class="input-group-addon search-icon-addon"><i class="glyphicon glyphicon-search"></i></div>
+                    <input type="text" class="form-control search" placeholder="Search" ng-model="search">
+                  </div>
+                </div>
+              </form>
+            </li>
+          </ul>
+
+          <hr/>
+
+          <ul class="nav nav-sidebar">
+            <li  ng-repeat="item in uuids | filter : search"  ng-class='{"active-sensor": currentUUIDIndex == $index}'>
+                <div class="row pointer">
+                  <div class="col-lg-2 col-md-2 col-sm-2 menu-sensor-edit">
+                    <button class="btn transparent-btn" title="change name" ng-click="textBtnForm.$show()" ng-hide="textBtnForm.$visible">
+                      <i class="fa fa-pencil"></i>
+                    </button>
+                  </div>
+                  <div class="col-lg-10 col-md-10 col-sm-10 menu-sensor-name" ng-click="chooseSensor($index);">
+                    <span editable-text="item.name" onbeforesave="setUUIDName($data)" title="{{item.uuid}}" e-form="textBtnForm">
+                      {{ item.name || item.uuid }}
+                    </span>
+                  </div>
+                </div>
+            </li>
+          </ul>
+
+        </div>
+
+        <div class="col-sm-3 col-md-2 col-sm-offset-3 col-md-offset-2 sidebar second-bar">
+
+          <ul class="nav nav-sidebar">
+            <li class="dropdown-header">Chart period</li>
+            <li ng-class='{"active-sensor": dashboard.period == "hour"}'>
+              <a href="#" ng-click="changeDashboardPeriod('hour')">hourly</a>
+            </li>
+            <li ng-class='{"active-sensor": dashboard.period == "day"}'>
+              <a href="#" ng-click="changeDashboardPeriod('day')">daily</a>
+            </li>
+            <li class="dropdown-header">&nbsp;</li>
+            <li class="dropdown-header">Chart type </li>
+            <li>
+              <a href="#" ng-class='{"active-sensor": dashboard.chart == "stackedAreaChart"}' ng-click="changeDashboardChart('stackedAreaChart')" >stacked area</a>
+            </li>
+            <li>
+              <a href="#" ng-class='{"active-sensor": dashboard.chart == "lineWithFocusChart"}' ng-click="changeDashboardChart('lineWithFocusChart')" >line with focus</a>
+            </li>
+            <li>
+              <a href="#" ng-class='{"active-sensor": dashboard.chart == "multiBarChart"}' ng-click="changeDashboardChart('multiBarChart')" >multi bar</a>
+            </li>
+            <li class="dropdown-header">&nbsp;</li>
+            <li class="dropdown-header">Options</li>
+            <li><a href="#" ng-click="getSensorData()">manual refresh</a></li>
+            <li>
+              <a href="#" ng-class='{"active-sensor": autorefresh.status == "on"}'  ng-click="toggleAutorefresh()">auto refresh is {{autorefresh.status}}</a>
+            </li>
+          </ul>
+
+        </div>
+
+        <div class="col-sm-6 col-sm-offset-6 col-md-8 col-md-offset-4 main">
+          <div data-chart data-value="value"></div>
+          <div class="disable-chart-hidden" ng-class='{"disable-chart":refresh.sensorData == true}'>
+            <div class="disable-chart-message-container">
+              <i class="fa fa-refresh fa-spin fa-3x"></i>
+              <div>tryin to get new data or changing view. please wait.</div>
+            </div>
+          </div>
+
+          <h3 class="page-header">{{dashboard.title}} </h3>
+          <div class="progress progress-bar-px">
+            <div class="progress-bar" role="progressbar" aria-valuenow="{{autorefresh.counter}}"
+            aria-valuemin="0" aria-valuemax="300" style="width:{{autorefresh.counter}}%">
+            </div>
+          </div>
+
+          <div class="row">
+            <nvd3 options="options" data="data">loading</nvd3>
+          </div>
+          <div class="row fake-footer">
+            <span><a href="https://github.com/rzrbld">github.com/rzrbld</a></span>
+          </div>
+          
+        </div>
+
+      </div>
+
+  </div>
+  
+  <script src="bower_components/angularjs/angular.min.js" type="text/javascript"></script>
+  <script src="assets/js/main.js" type="text/javascript"></script>
+  <script src="bower_components/d3/d3.js" type="text/javascript"></script>
+  <script src="bower_components/nvd3/nv.d3.js" type="text/javascript"></script> 
+  <script src="bower_components/angular-nvd3/dist/angular-nvd3.js" type="text/javascript"></script>
+  <script src="bower_components/angular-xeditable/dist/js/xeditable.js" type="text/javascript"></script>
+
+</body>
+</html>

@@ -1,0 +1,272 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600&subset=latin,cyrillic);
+
+html,body {
+	height: 100%;
+	min-height: 100%;
+	font-family: 'Open Sans', sans-serif, Arial;
+	padding: 0px;
+}
+.refresh-icon-my {
+	vertical-align: middle;
+	font-size: 1.8em !important; 
+}
+
+.container-fluid, .main, .container-fluid > div.row {
+	min-height: 100%;
+	max-height: 400%;
+  	height: 100%;
+}
+
+.search {
+	border: 0px !important;
+}
+
+.slider-container {
+
+	padding-top: 0px;
+	text-align: center;
+}
+
+.set-autorefresh {
+	padding-top: 30px;
+	margin-left: -20px;
+}
+
+.set-autorefresh > button:hover{
+	color: #019875;
+}
+
+.nav > li > a:focus {
+	text-decoration: none;
+	background-color: #4183D7;
+}
+
+.search-icon-addon {
+	border: 0px;
+	background-color: #22313F; 
+	color: #F5AB35;
+}
+
+.sensor-chart-header {
+	border-bottom: 1px solid #eee;
+}
+
+.disable-chart {
+	display: block !important;
+	background-color: #95a5a6;
+	opacity: 0.8;
+	position: absolute;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: 999;
+}
+
+.progress-bar-px {
+	height: 1px;
+	background-color: #fff;
+	padding: 0px;
+	margin: 0px;
+	margin-bottom: 25px;
+	margin-top: 10px;
+ 
+}
+.progress-bar{
+	background-color:#22A7F0;
+
+}
+
+.page-header {
+	border-bottom: 0px;
+	padding-bottom: 0px; 
+	margin: 0px;
+}
+
+.disable-chart-hidden {
+	display: none;
+}
+
+.disable-chart-message-container {
+	text-align: center;
+	padding-top: 30%;
+}
+
+.editable-input {
+	width:55% !important;
+}
+
+.search-sidebar {
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-top:10px;
+}
+
+.fake-footer {
+	position: absolute;
+	bottom: 0;
+	width: 300px;
+	right: 60px;
+	text-align: right;
+}
+
+.menu-sensor-name {
+	white-space: nowrap;
+	overflow: hidden;
+	padding-left: 0px;
+}
+
+.menu-sensor-edit {
+	padding: 0;
+  	text-align: center;
+}
+
+.transparent-btn {
+	background-color: none;
+	background: none;
+	padding: 0px 5px;
+}
+
+.editable-empty {
+	color: #C8F7C5 !important;
+}
+
+.first-bar {
+	background-color: #22A7F0 !important;
+	
+}
+
+.first-bar > ul > li > a, .first-bar > ul > li > div ,.second-bar > ul > li > a{
+	color: #E4F1FE !important;
+}
+
+.first-bar > ul > li > a:hover, .first-bar > ul > li > div:hover ,.second-bar > ul > li > a:hover{
+	background: #428bca;
+}
+
+.first-bar > ul > li > div {
+	padding-right: 20px;
+	padding-left: 20px;
+	position: relative;
+	display: block;
+	padding: 10px 15px;
+}
+
+.active-sensor {
+ 	background-color: #4183D7;
+}
+
+.second-bar {
+	background-color: #6BB9F0 !important;
+	-webkit-box-shadow: -1px 0px 4px 0px rgba(34,49,63,1);
+	-moz-box-shadow: -1px 0px 4px 0px rgba(34,49,63,1);
+	box-shadow: -1px 0px 4px 0px rgba(34,49,63,1);
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+.new-badge {
+	display: inline-block;
+	background-color: #C5EFF7;
+	border-radius: 50%;
+	width: 25px;
+	height: 25px;
+	text-align: center;
+	padding-top: 2px;
+	color: #22A7F0;
+}
+
+
+.chart {
+	width: 100%;
+	height: 400px;
+}
+
+.dropdown-header {
+	font-size: 1.1em;
+	color: #2C3E50;
+}
+
+.sub-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+/*
+ * Top navigation
+ * Hide default border to remove 1px line.
+ */
+.navbar-fixed-top {
+  border: 0;
+}
+
+/*
+ * Sidebar
+ */
+
+/* Hide for mobile, show later */
+.sidebar {
+  display: none;
+}
+@media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; 
+    border-right: none;
+  }
+}
+
+/* Sidebar navigation */
+.nav-sidebar {
+  margin-right: -21px; 
+  margin-bottom: 20px;
+  margin-left: -20px;
+}
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+.nav-sidebar > .active > a, .nav-sidebar > .active > div,
+.nav-sidebar > .active > a:hover, .nav-sidebar > .active > div:hover,
+.nav-sidebar > .active > a:focus, .nav-sidebar > .active > div:focus, {
+  color: #fff;
+  background-color: #4183D7;
+}
+
+
+
+
+/*
+ * Main content
+ */
+
+.main {
+  padding: 20px;
+  min-height: 100%;
+  z-index: 1000;
+  -webkit-box-shadow: -1px 0px 4px 0px rgba(34,49,63,1);
+	-moz-box-shadow: -1px 0px 4px 0px rgba(34,49,63,1);
+	box-shadow: -1px 0px 4px 0px rgba(34,49,63,1);
+  max-height: 400%;
+  height: auto;
+}
+@media (min-width: 768px) {
+  .main {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
+.main .page-header {
+  margin-top: 0;
+}
