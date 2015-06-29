@@ -9,6 +9,9 @@ This is a AngularJS powered dashboard, Node.js and Sqlite3 based backend and Ard
 WEB GUI (frontent) available at: http://dash.rzrbld.ru/
 JSON REST API can be obtained at: http://rzrbld.ru:3000/data/
 
+### Contact
+razblade@gmail.com
+
 
 ### Interaction scheme
 {sensors} > {arduino} > REST API (JSON) > {backend} < REST API (JSON) > {frontend}
