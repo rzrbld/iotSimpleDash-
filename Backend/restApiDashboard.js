@@ -1,3 +1,13 @@
+/*!
+ * iotSimpleDash-
+ * https://github.com/rzrbld/iotSimpleDash-
+ *
+ * Copyright 2015 github.com/rzrbld
+ * Released under the MIT license (see README.md)
+ * https://github.com/rzrbld/iotSimpleDash-
+ *
+ */
+
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('data/iotData');
 
@@ -32,12 +42,14 @@ function setHeaders(res){
 function formatDataToChart(rows){
     var temp = [],
         humidity = [],
-        light = [];
+        light = [],
+        rowsLength = rows.length,
+        aggregationIndex = Math.floor((rowsLength/1000)*2.5)+1;
 
-    for (var i = 0; i < rows.length; i++) {
-        var tobj = {x:rows[i].timestamp,y:rows[i].temp,series:0};
-        var hobj = {x:rows[i].timestamp,y:rows[i].humidity,series:1};
-        var lobj = {x:rows[i].timestamp,y:rows[i].light,series:2};
+    for (var i = 0; i < rowsLength; i+=aggregationIndex) {
+        var tobj = {x:rows[i].timestamp,y:rows[i].temp};
+        var hobj = {x:rows[i].timestamp,y:rows[i].humidity};
+        var lobj = {x:rows[i].timestamp,y:rows[i].light};
         temp.push(tobj);
         humidity.push(hobj);
         light.push(lobj);
@@ -52,6 +64,28 @@ function formatDataToChart(rows){
     return answ;
 }
  
+function formatDataToSelect(rows,field){
+    var answ = [],
+        formatted = '';
+
+    for (var i = 0; i < rows.length; i++) {
+        // console.log(rows[i]);
+        switch(field){
+            case 'date':
+                formatted = new Date(rows[i][field]).toString().slice(0, 15);
+            break;
+            case 'hour':
+                formatted = rows[i][field]+':00 ... '+rows[i][field]+':59';
+            break;
+        }
+
+        var itemObj = {value:rows[i][field],text:formatted}
+        answ.push(itemObj);
+    };
+
+    return answ;
+}
+
 var express = require('express');
 var restapi = express();
 var bodyParser = require('body-parser');
@@ -81,6 +115,42 @@ restapi.get('/data/:uuid', function(req, res){
     }
 });
 
+
+restapi.get('/data/getdays/:uuid/', function(req, res){
+    setHeaders(res);
+    var uuid = req.params.uuid,
+    uuidIsValid = uuidValidate(uuid);
+    if(!uuidIsValid){
+        res.status(500);
+        res.json({"error" : 4, "message" : "invalid input params"});
+        res.end();
+    } else {
+        db.all("SELECT DISTINCT date FROM iotData WHERE uuid = ? ", uuid, function(err, rows){
+            answ = formatDataToSelect(rows,'date');
+            res.json({ "error": 0, "results": rows.length,"items" : answ });
+        });
+    }
+});
+
+restapi.get('/data/gethours/:uuid/:date/', function(req, res){
+    setHeaders(res);
+    var uuid = req.params.uuid,
+    uuidIsValid = uuidValidate(uuid);
+    var date = req.params.date,
+    dateIsValid = dateValidate(date);
+
+    if(!uuidIsValid){
+        res.status(500);
+        res.json({"error" : 4, "message" : "invalid input params"});
+        res.end();
+    } else {
+        db.all("SELECT DISTINCT substr(time(time,'utc'),1,2) AS hour FROM iotData WHERE uuid = ? AND date = ? ", uuid, date, function(err, rows){
+            answ = formatDataToSelect(rows,'hour');
+            res.json({ "error": 0, "results": rows.length,"items" : answ });
+        });
+    }
+});
+
 restapi.get('/data/:uuid/:date', function(req, res){
     setHeaders(res);
     var uuid = req.params.uuid,
@@ -99,24 +169,6 @@ restapi.get('/data/:uuid/:date', function(req, res){
         });
     }
 });
-
-
-restapi.get('/data/:uuid/now', function(req, res){
-    setHeaders(res);
-    var uuid = req.params.uuid,
-    uuidIsValid = uuidValidate(uuid);
-    if(!uuidIsValid){
-        res.status(500);
-        res.json({"error" : 4, "message" : "invalid input params"});
-        res.end();
-    } else {
-        db.all("SELECT * FROM iotData WHERE uuid = ? ORDER by id DESC LIMIT 1", uuid, function(err, rows){
-            answ = formatDataToChart(rows);
-            res.json({ "error": 0, "results": rows.length,"items" : answ });
-        });
-    }
-});
-
 
 
 restapi.get('/data/:uuid/:date/:hours', function(req, res){
@@ -143,24 +195,18 @@ restapi.get('/data/:uuid/:date/:hours', function(req, res){
  
 restapi.post('/data/:uuid/t/:temp/h/:humidity/l/:light', function(req, res){
     setHeaders(res);
-    process.env.TZ = 'Europe/Moscow'; 
     var uuid = req.params.uuid,
     uuidIsValid = uuidValidate(uuid),
     temp = Number(req.params.temp),
     humidity = Number(req.params.humidity),
-    light = Number(req.params.light),
-    now = new Date(),
-    nowDateString = now.toLocaleDateString(),
-    nowTimeString = now.toLocaleTimeString();
-
-    // console.log('now date:',nowDateString,'  now time:', nowTimeString);
+    light = Number(req.params.light);
 
     if( !uuidIsValid || temp == NaN || humidity == NaN || light == NaN ){
         res.status(500);
         res.json({"error" : 1, "message" : "invalid input params"});
         res.end();
     } else {
-        db.run("INSERT INTO iotData (date, time, uuid, temp, humidity, light, timestamp) VALUES (?, ?, ?, ?, ?, ?, strftime('%s', 'now'))", nowDateString, nowTimeString,  uuid, temp, humidity, light, function(err, row){
+        db.run("INSERT INTO iotData (date, time, uuid, temp, humidity, light, timestamp) VALUES (date('now'),time('now'), ?, ?, ?, ?, strftime('%s', 'now'))", uuid, temp, humidity, light, function(err, row){
             if (err){
                 console.log(err);
                 res.status(500);

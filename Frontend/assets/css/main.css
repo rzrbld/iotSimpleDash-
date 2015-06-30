@@ -133,20 +133,66 @@ html,body {
 	color: #C8F7C5 !important;
 }
 
+a.editable-click {
+	color: #E4F1FE !important;
+}
+
+.dropdown-edit > a {
+	text-decoration: none;
+	border: none;
+	border-bottom: none !important;
+}
+
+.upper-alert{
+	z-index: 9999;
+    position: absolute;
+    width: 100%;
+    background-color: #D64541;
+    padding:  10px;
+    color: #fff;
+    overflow: hidden;
+   	-webkit-box-shadow: -1px 0px 4px 0px rgba(34,49,63,1);
+	-moz-box-shadow: -1px 0px 4px 0px rgba(34,49,63,1);
+	box-shadow: -1px 0px 4px 0px rgba(34,49,63,1);
+	display:none;
+
+}
+
+.upper-alert-show {
+	display: block;
+	animation: show-alert 3000ms ease-in-out both;
+}
+
+@-webkit-keyframes show-alert {
+    from {top: -100px;}
+    to {top: 0px;}
+}
+
+@keyframes show-alert {
+    from {top: -100px;}
+    to {top: 0px;}
+}
+
+.warning-sign-container{
+	text-align: center;
+	margin-top: 9px;
+}
+
 .first-bar {
 	background-color: #22A7F0 !important;
 	
 }
 
-.first-bar > ul > li > a, .first-bar > ul > li > div ,.second-bar > ul > li > a{
+
+.first-bar > ul > li > a, .first-bar > ul > li > div , .second-bar > ul > li > a , .second-bar > ul > li > div {
 	color: #E4F1FE !important;
 }
 
-.first-bar > ul > li > a:hover, .first-bar > ul > li > div:hover ,.second-bar > ul > li > a:hover{
+.first-bar > ul > li > a:hover, .first-bar > ul > li > div:hover ,.second-bar > ul > li > a:hover, .second-bar > ul > li > div:hover {
 	background: #428bca;
 }
 
-.first-bar > ul > li > div {
+.first-bar > ul > li > div, .second-bar > ul > li > div {
 	padding-right: 20px;
 	padding-left: 20px;
 	position: relative;

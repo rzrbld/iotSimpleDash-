@@ -1,4 +1,16 @@
 <!DOCTYPE html>
+
+<!--
+ *
+ * iotSimpleDash-
+ * https://github.com/rzrbld/iotSimpleDash-
+ *
+ * Copyright 2015 github.com/rzrbld
+ * Released under the MIT license (see README.md)
+ * https://github.com/rzrbld/iotSimpleDash-
+ *
+ -->
+
 <html ng-app="myDashApp" ng-cloak >
 <head>
 
@@ -14,10 +26,20 @@
   <link href="bower_components/angular-xeditable/dist/css/xeditable.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="bower_components/font-awesome/css/font-awesome.min.css">
 
-  <title>Simple frontend</title>
+  <title>iotSimpleDash</title>
 
 </head>
 <body ng-controller="myDashCtrl">
+  <div class="upper-alert" ng-class='{"upper-alert-show":errormessage!=""}'>
+    <div class="row">
+      <div class="col-lg-1 col-md-1 col-sm-2 warning-sign-container">
+          <i class="fa fa-2x fa-warning"></i>&nbsp;
+      </div>
+      <div class="col-lg-11 col-md-11 col-sm-10">
+          {{errormessage}}
+      </div>
+    </div>
+  </div>
   <div class="container-fluid">
       <div class="row">
 
@@ -25,7 +47,7 @@
 
           <ul class="nav nav-sidebar">
             <li>
-              <a class="pointer" ng-click="getSensorList()">you've got 
+              <a class="pointer" title="full refresh" ng-click="getSensorList()">you've got 
                 <span class="new-badge">{{uuids.length}}</span>
                  sensor{{plural(uuids)}}
                 <span class="fa fa-refresh refresh-icon-my" ng-class='{"fa-spin":refresh.sensorList == true}'></span>
@@ -67,12 +89,28 @@
         <div class="col-sm-3 col-md-2 col-sm-offset-3 col-md-offset-2 sidebar second-bar">
 
           <ul class="nav nav-sidebar">
-            <li class="dropdown-header">Chart period</li>
+            <li class="dropdown-header">Chart period (UTC)</li>
             <li ng-class='{"active-sensor": dashboard.period == "hour"}'>
-              <a href="#" ng-click="changeDashboardPeriod('hour')">hourly</a>
+              <div class="row pointer">
+                <div class="col-lg-12 col-md-12 col-sm-12 dropdown-edit">
+                  <a href="#" editable-select="dropdown.hour" e-ng-options="s.value as s.text for s in hours" onbeforesave="changeDashboardPeriod('hour',$data)">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      {{ showHours()}}
+                    </div>
+                  </a>
+                </div>
+              </div>
             </li>
             <li ng-class='{"active-sensor": dashboard.period == "day"}'>
-              <a href="#" ng-click="changeDashboardPeriod('day')">daily</a>
+              <div class="row pointer">
+                <div class="col-lg-12 col-md-12 col-sm-12 dropdown-edit">
+                  <a href="#" editable-select="dropdown.date" e-ng-options="s.value as s.text for s in dates" onbeforesave="changeDashboardPeriod('day',$data)">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      {{ showDates() }}
+                    </div>
+                  </a>
+                </div>
+              </div>
             </li>
             <li class="dropdown-header">&nbsp;</li>
             <li class="dropdown-header">Chart type </li>
@@ -100,7 +138,7 @@
           <div class="disable-chart-hidden" ng-class='{"disable-chart":refresh.sensorData == true}'>
             <div class="disable-chart-message-container">
               <i class="fa fa-refresh fa-spin fa-3x"></i>
-              <div>tryin to get new data or changing view. please wait.</div>
+              <div>getting data and transform to chart. please wait.</div>
             </div>
           </div>
 
@@ -115,7 +153,7 @@
             <nvd3 options="options" data="data">loading</nvd3>
           </div>
           <div class="row fake-footer">
-            <span><a href="https://github.com/rzrbld">github.com/rzrbld</a></span>
+            <span><a href="https://github.com/rzrbld">github.com/rzrbld &copy; 2015</a></span>
           </div>
           
         </div>
