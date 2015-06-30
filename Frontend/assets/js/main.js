@@ -93,13 +93,13 @@ app.controller("myDashCtrl", function($scope,$http,$interval,$filter) {
                     axisLabel: 'Time',
                     tickFormat: function(d){
                         d=Number(d+'000');
-                        return d3.time.format('%X')(new Date(d))
+                        return d3.time.format.utc('%X')(new Date(d))
                     }
                 },
                 x2Axis: {
                     tickFormat: function(d){
                         d=Number(d+'000');
-                        return d3.time.format('%X')(new Date(d))
+                        return d3.time.format.utc('%X')(new Date(d))
                     },
                 },
                 yAxis: {
@@ -128,7 +128,7 @@ app.controller("myDashCtrl", function($scope,$http,$interval,$filter) {
                     showMaxMin: false,
                     tickFormat: function(d) {
                         d=Number(d+'000');
-                        return d3.time.format('%X')(new Date(d))
+                        return d3.time.format.utc('%X')(new Date(d))
                     }
                 },
                 yAxis: {
@@ -153,7 +153,7 @@ app.controller("myDashCtrl", function($scope,$http,$interval,$filter) {
                     showMaxMin: false,
                     tickFormat: function(d) {
                         d=Number(d+'000');
-                        return d3.time.format('%X')(new Date(d))
+                        return d3.time.format.utc('%X')(new Date(d))
                     }
                 },
                 yAxis: {

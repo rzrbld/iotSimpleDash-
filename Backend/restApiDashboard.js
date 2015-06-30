@@ -144,7 +144,7 @@ restapi.get('/data/gethours/:uuid/:date/', function(req, res){
         res.json({"error" : 4, "message" : "invalid input params"});
         res.end();
     } else {
-        db.all("SELECT DISTINCT substr(time(time,'utc'),1,2) AS hour FROM iotData WHERE uuid = ? AND date = ? ", uuid, date, function(err, rows){
+        db.all("SELECT DISTINCT substr(time,1,2) AS hour FROM iotData WHERE uuid = ? AND date = ? ", uuid, date, function(err, rows){
             answ = formatDataToSelect(rows,'hour');
             res.json({ "error": 0, "results": rows.length,"items" : answ });
         });
