@@ -1,16 +1,11 @@
 # iot Simple Dashboard
 This is a AngularJS powered dashboard, Node.js and Sqlite3 based backend and Arduino project. Kind a AIO package, but all components: backend, frontend and arduino part you may use independently of each other.
 
-###TO DO
-* Customize data filter
-* Add more info about sensor: last data send, custom fields (location and etc.)
-* more readme
-* REST API WADL or full docs
-
 
 ### Demo
 * WEB GUI (frontend) available at: http://dash.rzrbld.ru/
 * JSON REST API (backend) can be obtained at: http://rzrbld.ru:3000/data/
+
 
 ### Contact
 [razblade@gmail.com]
@@ -19,7 +14,11 @@ This is a AngularJS powered dashboard, Node.js and Sqlite3 based backend and Ard
 ### Interaction scheme
 {sensors} > {arduino} > REST API (JSON) > {backend} < REST API (JSON) > {frontend}
 
-### Current version - 0.5
+### Current version - 0.52
+* added time and date filteres
+* new alert block
+* backend speedups on day view
+* fix autorefresh
 
 ### Frontend requirements
 * [AngularJS]
