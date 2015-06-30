@@ -2,15 +2,18 @@
 This is a AngularJS powered dashboard, Node.js and Sqlite3 based backend and Arduino project. Kind a AIO package, but all components: backend, frontend and arduino part you may use independently of each other.
 
 ###TO DO
+* Customize data filter
+* Add more info about sensor: last data send, custom fields (location and etc.)
 * more readme
 * REST API WADL or full docs
 
+
 ### Demo
-WEB GUI (frontent) available at: http://dash.rzrbld.ru/
-JSON REST API can be obtained at: http://rzrbld.ru:3000/data/
+* WEB GUI (frontend) available at: http://dash.rzrbld.ru/
+* JSON REST API (backend) can be obtained at: http://rzrbld.ru:3000/data/
 
 ### Contact
-razblade@gmail.com
+[razblade@gmail.com]
 
 
 ### Interaction scheme
@@ -28,6 +31,7 @@ razblade@gmail.com
 * [d3]
 * [bower] or another package manager
 * [nginx] or anoter web server
+
 #### not using depends:
 * [jQuery]
 * [Twitter Bootstrap] js part
@@ -75,6 +79,15 @@ restapi.listen(3000);
 ```
 
 ###License: MIT
+
+The MIT License (MIT) 
+Copyright (c) 2012,2013,2014,2015
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: 
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. 
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
 [node.js]:http://nodejs.org
 [Twitter Bootstrap]:http://twitter.github.com/bootstrap/
 [express]:http://expressjs.com
@@ -91,3 +104,4 @@ restapi.listen(3000);
 [bower]:http://bower.io/
 [nginx]:http://nginx.org/
 [sqlite3]:http://github.com/mapbox/node-sqlite3
+[razblade@gmail.com]:mailto:razblade@gmail.com
