@@ -18,7 +18,7 @@ int led = 13;                                                      // build-in l
 DHT dht(DHTPIN, DHTTYPE);                                          // init DHT 11
 
 //======================Configure 
-String backendServerIP = "89.108.88.202";                            // backend serer IP rzrbld.ru
+String backendServerIP = "185.46.11.15";                            // backend serer IP rzrbld.ru
 String backendServerPort = "3000";                                  // backend server PORT
 String wifiSSID = "myWiFi";                                         // WiFi SSID name
 String wifiPassword = "thelongestwifipasswordontheearth";                                       // WiFi password
