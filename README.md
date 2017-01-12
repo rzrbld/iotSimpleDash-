@@ -72,7 +72,7 @@ $ npm install express sqlite3 body-parser
 # to change default IP:PORT
 $ vim restApiDashboard.js
 .....
-restapi.listen(3000);
+restapi.listen(4000);
 .....
 # done
 ```
