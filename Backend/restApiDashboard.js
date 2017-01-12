@@ -34,7 +34,7 @@ function hoursValidate(hours){
 }
 
 function setHeaders(res){
-    res.set({'Content-Type':'application/json', 
+    res.set({'Content-Type':'application/json',
         'Access-Control-Allow-Origin':'*'
     });
 }
@@ -63,7 +63,7 @@ function formatDataToChart(rows){
 
     return answ;
 }
- 
+
 function formatDataToSelect(rows,field){
     var answ = [],
         formatted = '';
@@ -192,7 +192,7 @@ restapi.get('/data/:uuid/:date/:hours', function(req, res){
     }
 });
 
- 
+
 restapi.post('/data/:uuid/t/:temp/h/:humidity/l/:light', function(req, res){
     setHeaders(res);
     var uuid = req.params.uuid,
@@ -220,11 +220,11 @@ restapi.post('/data/:uuid/t/:temp/h/:humidity/l/:light', function(req, res){
             res.end();
         });
     }
-    
+
 });
 
 restapi.post('/data/:uuid/name', function(req, res){
-    
+
     var name = req.body.name,
     nameIsValid = nameValidate(name),
     uuid = req.params.uuid,
@@ -252,9 +252,9 @@ restapi.post('/data/:uuid/name', function(req, res){
         });
     }
 });
- 
 
- 
-restapi.listen(3000);
- 
-console.log("Submit GET or POST to http://localhost:3000/data");
+
+
+restapi.listen(4000);
+
+console.log("Submit GET or POST to http://localhost:4000/data");

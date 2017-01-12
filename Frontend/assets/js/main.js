@@ -38,12 +38,12 @@ app.controller("myDashCtrl", function($scope,$http,$interval,$filter) {
     $scope.autorefresh = {};
     $scope.autorefresh.counter = 0;
     $scope.autorefresh.status = (($scope.getData('autorefresh.status')) ? $scope.getData('autorefresh.status') : 'on');
-    $scope.promiseRefresh = "";   
+    $scope.promiseRefresh = "";
     $scope.options = {};
-    $scope.options.chart = ""; 
+    $scope.options.chart = "";
     $scope.errormessage = "";
     $scope.backend = {
-      'host':'http://89.108.88.202:3000/',
+      'host':'http://176.58.108.193:4000/',
     };
 
     var refreshData = function() {
@@ -78,7 +78,7 @@ app.controller("myDashCtrl", function($scope,$http,$interval,$filter) {
 
       var chart;
       switch($scope.dashboard.chart){
-        case 'lineWithFocusChart': 
+        case 'lineWithFocusChart':
           chart = {
                 type: 'lineWithFocusChart',
                 height: 450,
@@ -161,7 +161,7 @@ app.controller("myDashCtrl", function($scope,$http,$interval,$filter) {
             }
         break;
       }
-      
+
       $scope.options.chart = chart;
     }
 
@@ -304,7 +304,7 @@ app.controller("myDashCtrl", function($scope,$http,$interval,$filter) {
       }).
       success(function(data, status, headers, config) {
         // console.log('data:',data,'\nstatus:',status,'\nheaders',headers,'\nconfig',config);
-        
+
         $scope.chartInit(data);
         $scope.setRefresh('sensorData',false);
       }).
@@ -331,9 +331,9 @@ app.controller("myDashCtrl", function($scope,$http,$interval,$filter) {
           $scope.errormessage = 'unexpected error while changing sensor name. abracadabra:'+JSON.stringify(config)+'';
         });
     };
-    
+
     $scope.plural = function (tab){
-      return tab.length > 1 ? 's': ''; 
+      return tab.length > 1 ? 's': '';
     };
 
     $scope.showHours = function() {
